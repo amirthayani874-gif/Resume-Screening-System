@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Screening Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>Resume Screening Result</h1>
+
+        <p>
+            Resume analysis completed successfully
+        </p>
+
+    </div>
+
+
+
+    <!-- CANDIDATE INFORMATION -->
+
+    <div class="card">
+
+        <h2>Candidate Information</h2>
+
+        <div class="candidate-info">
+
+
+            <div>
+
+                <span>Name</span>
+
+                <strong>
+                    {{ name }}
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>Email</span>
+
+                <strong>
+                    {{ email }}
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>Phone</span>
+
+                <strong>
+                    {{ phone }}
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- OVERALL SCORE -->
+
+    <div class="card score-card">
+
+        <h2>Overall Match Score</h2>
+
+
+        <div class="score-circle">
+
+            <span>
+                {{ "%.2f"|format(final_score) }}%
+            </span>
+
+        </div>
+
+
+        <p>
+            Resume compatibility with the job description
+        </p>
+
+    </div>
+
+
+
+    <!-- SCORE BREAKDOWN -->
+
+    <div class="card">
+
+        <h2>Score Breakdown</h2>
+
+
+        <!-- SKILL SCORE -->
+
+        <div class="score-item">
+
+            <div class="score-heading">
+
+                <span>
+                    Skill Match
+                </span>
+
+                <strong>
+                    {{ "%.2f"|format(skill_score) }}%
+                </strong>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar skill-progress"
+                    data-score="{{ skill_score }}">
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SIMILARITY SCORE -->
+
+        <div class="score-item">
+
+            <div class="score-heading">
+
+                <span>
+                    Text Similarity
+                </span>
+
+                <strong>
+                    {{ "%.2f"|format(similarity_score) }}%
+                </strong>
+
+            </div>
+
+
+            <div class="progress">
+
+                <div
+                    class="progress-bar similarity-progress"
+                    data-score="{{ similarity_score }}">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- MATCHED + MISSING SKILLS -->
+
+    <div class="two-column">
+
+
+        <!-- MATCHED SKILLS -->
+
+        <div class="card">
+
+            <h2>Matched Skills</h2>
+
+
+            {% if matched_skills %}
+
+                <div class="skill-list">
+
+                    {% for skill in matched_skills %}
+
+                        <span class="skill matched">
+
+                            ✓ {{ skill }}
+
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <p>
+                    No matched skills found.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- MISSING SKILLS -->
+
+        <div class="card">
+
+            <h2>Missing Skills</h2>
+
+
+            {% if missing_skills %}
+
+                <div class="skill-list">
+
+                    {% for skill in missing_skills %}
+
+                        <span class="skill missing">
+
+                            ✗ {{ skill }}
+
+                        </span>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <p>
+                    No missing skills.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- RESUME SKILLS -->
+
+    <div class="card">
+
+        <h2>Resume Skills</h2>
+
+
+        {% if resume_skills %}
+
+            <div class="skill-list">
+
+                {% for skill in resume_skills %}
+
+                    <span class="skill">
+
+                        {{ skill }}
+
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>
+                No skills found.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- REQUIRED SKILLS -->
+
+    <div class="card">
+
+        <h2>Required Skills</h2>
+
+
+        {% if required_skills %}
+
+            <div class="skill-list">
+
+                {% for skill in required_skills %}
+
+                    <span class="skill">
+
+                        {{ skill }}
+
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>
+                No required skills detected.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- EDUCATION -->
+
+    <div class="card">
+
+        <h2>Education</h2>
+
+
+        {% if education %}
+
+            {% for entry in education %}
+
+                <div class="education-entry">
+
+                    {% for line in entry %}
+
+                        <p>
+                            {{ line }}
+                        </p>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                No education information found.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- EXPERIENCE -->
+
+<div class="card">
+
+    <h2>Experience</h2>
+
+    {% if experience %}
+
+        <div class="experience-container">
+
+            {% for job in experience %}
+
+                <div class="experience-card">
+
+                    <div class="experience-info">
+
+                        <h3>
+                            {{ job.role }}
+                        </h3>
+
+                        {% if job.company %}
+                            <p class="company">
+                                {{ job.company }}
+                            </p>
+                        {% endif %}
+
+                    </div>
+
+                    {% if job.date %}
+                        <span class="experience-date">
+                            {{ job.date }}
+                        </span>
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="no-data">
+            No experience information found.
+        </div>
+
+    {% endif %}
+
+</div>
+    
+
+
+
+    <div class="actions">
+
+        <a href="/" class="back-button">
+
+            Analyze Another Resume
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+    const skillProgress =
+        document.querySelector(".skill-progress");
+
+    const similarityProgress =
+        document.querySelector(".similarity-progress");
+
+
+    if (skillProgress) {
+
+        skillProgress.style.width =
+            skillProgress.dataset.score + "%";
+
+    }
+
+
+    if (similarityProgress) {
+
+        similarityProgress.style.width =
+            similarityProgress.dataset.score + "%";
+
+    }
+
+</script>
+
+
+<div class="download-section">
+
+    <a href="/download-report" class="download-button">
+        Download Screening Report
+    </a>
+
+</div>
+
+</body>
+
+</html>

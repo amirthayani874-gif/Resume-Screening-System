@@ -1,0 +1,9 @@
+Data Analyst
+
+We are looking for a Data Analyst with strong knowledge of Python,
+SQL, Excel and Power BI.
+
+The candidate should have experience in data analysis,
+data visualization and statistics.
+
+Knowledge of machine learning, Pandas and NumPy is an added advantage.
