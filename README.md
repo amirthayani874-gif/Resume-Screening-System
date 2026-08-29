@@ -34,7 +34,7 @@ The system allows users to upload a resume and provide a job description. It ext
 
 **Clone the repository:**
 
-git clone https://github.com/YOUR-USERNAME/Resume-Screening-System.git
+git clone https://github.com/amirthayani874-gif/Resume-Screening-System.git
 
 **Open the project folder:**
 
