@@ -30,30 +30,39 @@ The system allows users to upload a resume and provide a job description. It ext
 - HTML
 - CSS
 
-## Project Structure
+## Installation
 
-Resume-Screening-System/
-│
-├── app.py
-├── resume_parser.py
-├── resume_info.py
-├── job_matcher.py
-├── similarity.py
-├── report_generator.py
-├── requirements.txt
-├── job_description.txt
-│
-├── templates/
-│   ├── index.html
-│   └── result.html
-│
-├── static/
-│   └── style.css
-│
-├── test_info.py
-├── test_job.py
-├── test_parser.py
-└── test_similarity.py
+**Clone the repository:**
+
+git clone https://github.com/YOUR-USERNAME/Resume-Screening-System.git
+
+**Open the project folder:**
+
+cd Resume-Screening-System
+
+**Create a virtual environment:**
+
+python -m venv env
+
+**Activate the environment on Windows:**
+
+env\Scripts\activate
+
+**Install the required packages:**
+
+pip install -r requirements.txt
+
+
+## Run the Application
+
+**Start the Flask application:**
+
+python app.py
+
+**Then open the local URL shown in the terminal, usually:**
+
+http://127.0.0.1:5000
+
 
 ## How It Works
 
